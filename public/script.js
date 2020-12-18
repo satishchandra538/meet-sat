@@ -14,7 +14,8 @@ navigator.mediaDevices.getUserMedia({
   audio: true
 }).then(stream => {
   myVideoStream = stream;
-  addVideoStream(myVideo, stream)
+  addVideoStream(myVideo, stream);
+
   myPeer.on('call', call => {
     call.answer(stream)
     const video = document.createElement('video')
@@ -26,9 +27,9 @@ navigator.mediaDevices.getUserMedia({
   socket.on('user-connected', userId => {
     connectToNewUser(userId, stream)
   })
-  // input value
+  
   let text = $("input");
-  // when press enter send message
+  
   $('html').keydown(function (e) {
     if (e.which == 13 && text.val().length !== 0) {
       socket.emit('message', text.val());
@@ -70,13 +71,10 @@ function addVideoStream(video, stream) {
   videoGrid.append(video)
 }
 
-
-
 const scrollToBottom = () => {
   var d = $('.main__chat_window');
   d.scrollTop(d.prop("scrollHeight"));
 }
-
 
 const muteUnmute = () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
@@ -90,7 +88,6 @@ const muteUnmute = () => {
 }
 
 const playStop = () => {
-  console.log('object')
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
     myVideoStream.getVideoTracks()[0].enabled = false;
